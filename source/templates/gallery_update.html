@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Detail{% endblock %}
+{% block navbar %}
+
+
+<a href="{% url 'index' %}" class="nav-link"   style="color: white;">Home</a>
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+    <form method="post">
+       {%include 'partial/posts_form.html' with button_text='изменить'%}
+    </form>
+</div>
+
+{% endblock %}

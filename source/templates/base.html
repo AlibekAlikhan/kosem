@@ -1,0 +1,35 @@
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}Blog{% endblock %}</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+<nav class="nav" style="background-color: #E1306C; height: 50px;">
+    <a href="{% url 'profile' user.pk %}" class="nav-link" style="color: white;">Profile</a>
+    <a href="{% url 'gallery_create' %}" class="nav-link" style="color: white;">Create Gallery</a>
+    {% block navbar %}{% endblock %}
+</nav>
+{% else %}
+    <nav class="nav" style="background-color: #E1306C; height: 50px;">
+<a class="btn btn-primary" href="{% url 'login' %}" role="button" style="margin-right: 20px">Войти</a>
+<a class="btn btn-primary" href="{% url 'register' %}" role="button"
+   style="margin-right: 20px">Зарегистрироваться</a>
+
+</nav>
+
+{% endif %}
+
+{% block menu %}{% endblock %}
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>
