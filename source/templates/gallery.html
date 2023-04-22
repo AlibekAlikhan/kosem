@@ -29,14 +29,13 @@ let favoritesClick = function(){
         let xhr = new XMLHttpRequest(); 
         xhr.onload = function(){
                 console.log(status)
-            
-                if(favorites.innerHTML === 'Add favorites'){
+            };
+            if(favorites.innerHTML === 'Add favorites'){
                     favorites.innerHTML = 'Remoov favorites'
                 }
                 else if(favorites.innerHTML === 'Remoov favorites'){
                     favorites.innerHTML = 'Add favorites'
                 }
-            };
         xhr.open('POST', `http://127.0.0.1:8000/api/favorites/${pk.innerHTML}`);
         send = {
             "A": pk.innerHTML,
