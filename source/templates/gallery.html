@@ -10,9 +10,10 @@
         <h5>Подпись - {{ pos.signature }}</h5>
         <h5>Время создания - {{ pos.created_at }}</h5>
         <a href="{% url 'detail_view' pos.pk%}" class="btn btn-primary">Task detail info</a>
+        <p class="user_id" id="{{pos.pk}}" style="display: none;">{{pos.pk}}</p>
         {% if user.is_authenticated %}
         <button svg="{% url 'favorites' pos.pk%}" class="btn btn-primary" id="favorites">Add favorites</button>
-        <p id="pos_pk" style="display: none;">{{pos.pk}}</p>
+        
         {% endif %}
     </div>
 </div>
@@ -22,7 +23,7 @@
 <script>
 
 
-let pk = document.querySelector('#pos_pk')
+let pk = document.getElementsByClassName('user_id')[0]
 const favorites = document.getElementById(`favorites`)
 
 let favoritesClick = function(){
@@ -36,9 +37,9 @@ let favoritesClick = function(){
                 else if(favorites.innerHTML === 'Remoov favorites'){
                     favorites.innerHTML = 'Add favorites'
                 }
-        xhr.open('POST', `http://127.0.0.1:8000/api/favorites/${pk.innerHTML}`);
+        xhr.open('POST', `http://127.0.0.1:8000/api/favorites/${pk.id}`);
         send = {
-            "A": pk.innerHTML,
+            "A": pk.id,
         }
         xhr.send(JSON.stringify(send))
     }

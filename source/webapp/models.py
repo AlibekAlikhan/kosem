@@ -24,7 +24,6 @@ class Gallery(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Время создания",
-
     )
     favorites = models.ManyToManyField(
         verbose_name='Подписки',
