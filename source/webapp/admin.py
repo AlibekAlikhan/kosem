@@ -1,3 +1,14 @@
 from django.contrib import admin
 
-# Register your models here.
+from webapp.models import Photo
+
+
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ("id", "photo")
+    list_filter = ("id", "photo")
+    search_fields = ("photo", )
+    filter = ("photo",)
+    readonly_fields = ("id",)
+
+
+admin.site.register(Photo, ImageAdmin)

@@ -8,7 +8,7 @@ from django.views.generic import TemplateView, CreateView, DetailView, UpdateVie
 
 from accounts.forms import LoginForm, CustomUserCreationForm
 
-from accounts.forms import UserChangeForm, ProfileChangeForm
+# from accounts.forms import UserChangeForm, ProfileChangeForm
 
 
 class LoginView(TemplateView):
@@ -67,23 +67,23 @@ class ProfileView(LoginRequiredMixin, DetailView):
     paginate_related_orphans = 0
 
 
-class UserChangeView(UpdateView):
-    model = get_user_model()
-    form_class = UserChangeForm
-    template_name = 'user_change.html'
-    context_object_name = 'user_obj'
-
-    def get_context_data(self, **kwargs):
-        if 'profile_form' not in kwargs:
-            kwargs['profile_form'] = self.get_profile_form()
-        return super().get_context_data(**kwargs)
-
-    def get_success_url(self):
-        return reverse('profile', kwargs={'pk': self.object.pk})
-
-    def get_profile_form(self):
-        form_kwargs = {'instance': self.model}
-        if self.request.method == 'POST':
-            form_kwargs['data'] = self.request.POST
-            form_kwargs['files'] = self.request.FILES
-        return ProfileChangeForm(**form_kwargs)
+# class UserChangeView(UpdateView):
+#     model = get_user_model()
+#     form_class = UserChangeForm
+#     template_name = 'user_change.html'
+#     context_object_name = 'user_obj'
+#
+#     def get_context_data(self, **kwargs):
+#         if 'profile_form' not in kwargs:
+#             kwargs['profile_form'] = self.get_profile_form()
+#         return super().get_context_data(**kwargs)
+#
+#     def get_success_url(self):
+#         return reverse('profile', kwargs={'pk': self.object.pk})
+#
+#     def get_profile_form(self):
+#         form_kwargs = {'instance': self.model}
+#         if self.request.method == 'POST':
+#             form_kwargs['data'] = self.request.POST
+#             form_kwargs['files'] = self.request.FILES
+#         return ProfileChangeForm(**form_kwargs)

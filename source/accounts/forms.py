@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from webapp.models import Gallery
 
 
 class LoginForm(forms.Form):
@@ -18,7 +17,7 @@ class CustomUserCreationForm(forms.ModelForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password', 'password_confirm', 'first_name', 'last_name', 'email', 'avatar', "phone")
+        fields = ('username', 'password', 'password_confirm', 'first_name', 'last_name', 'email', "phone")
 
     def clean(self):
         cleaned_data = super().clean()
@@ -38,17 +37,8 @@ class CustomUserCreationForm(forms.ModelForm):
 class UserChangeForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ('first_name', 'last_name', 'email', 'avatar', 'phone')
+        fields = ('first_name', 'last_name', 'email', 'phone')
         labels = {'first_name': 'Имя', 'last_name': 'Фамилия', 'email': 'Email', 'phone': 'телефон'}
 
-class ProfileChangeForm(forms.ModelForm):
-    class Meta:
-        model = Gallery
-        fields = ("photo", "signature")
-        labels = {
-            'photo': 'Фото',
-            'signature': 'Подпись',
-        }
 
-ssadsads
 

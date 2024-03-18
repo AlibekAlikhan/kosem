@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-!rcr$z=_!7g(5f=05!^n_@g0bo2-wposgwolxo))f8=8r$#2d3
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -39,10 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_bootstrap5',
     'webapp',
+    'rest_framework',
     'accounts'
 ]
-
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,14 +71,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "control_9_new",
+        "NAME": "test_kosem_2",
         "USER": "postgres",
         "PASSWORD": "alikhan2005",
         "HOST": "localhost",
@@ -121,7 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -132,7 +127,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -154,9 +148,6 @@ LOGIN_URL = 'login'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
 
 # Default settings
 BOOTSTRAP5 = {
@@ -217,7 +208,7 @@ BOOTSTRAP5 = {
     'server_side_validation': True,
 
     # Renderers (only set these if you have studied the source and understand the inner workings).
-    'formset_renderers':{
+    'formset_renderers': {
         'default': 'django_bootstrap5.renderers.FormsetRenderer',
     },
     'form_renderers': {
