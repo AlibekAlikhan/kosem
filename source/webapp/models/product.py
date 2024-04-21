@@ -1,6 +1,8 @@
 from django.db import models
 from enum import Enum
 
+from django.utils import timezone
+
 
 class ProductSize(Enum):
     M = 'M'
@@ -63,3 +65,11 @@ class Product(models.Model):
         auto_now=True,
         verbose_name="Дата обнавления"
     )
+
+    def __str__(self):
+        return f"{self.name}"
+
+    def delete(self, using=None, keep_parents=False):
+        self.is_deleted = True
+        self.deleted_at = timezone.now()
+        self.save()

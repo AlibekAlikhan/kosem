@@ -8,3 +8,6 @@ class Category(models.Model):
         blank=False,
         verbose_name="Название категории",
     )
+
+    def __str__(self):
+        return f"{self.name}"

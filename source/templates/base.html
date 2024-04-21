@@ -1,0 +1,56 @@
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&display=swap"
+          rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<div class="base_styles">
+    <div class="header">
+        <div class="container">
+            <div class="titany_logo">
+                </a>
+            </div>
+            {% block header %}
+            {% endblock %}
+            <div class="burger_menu_custom_div">
+                <nav class="burger_menu_nav_custom">
+                    <div class="burger-button">
+                        <span class="burger-top"></span>
+                        <span class="burger-middle"></span>
+                        <span class="burger-bottom"></span>
+                    </div>
+
+                </nav>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav_menu">
+
+            </div>
+
+        </div>
+    </nav>
+    <div class="container container_content">
+        {% block content %}{% endblock %}
+    </div>
+    <div class="bottom_indent"></div>
+    {% block script_block %}
+
+    {% endblock %}
+</div>
+
+</body>
+</html>
