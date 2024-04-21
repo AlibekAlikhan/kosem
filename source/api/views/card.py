@@ -4,51 +4,61 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.utils import json
 from rest_framework.generics import GenericAPIView
-from api.serializers import ProductSerializer
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from webapp.models import Product, Category
+from api.serializers import CardSerializer
+from webapp.models import Product, Cart
+from accounts.models import Account
 
 
-class ProductSimpleView(GenericAPIView):
-    serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
+class CardSimpleView(GenericAPIView):
+    serializer_class = CardSerializer
 
     def get(self, request, *args, **kwargs):
         try:
-            events = Product.objects.all()
+            card = Cart.objects.all()
         except ObjectDoesNotExist:
             Response({"error": "введите существующий pk"})
         else:
-            serializer = ProductSerializer(events, many=True)
+            serializer = CardSerializer(card, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
         try:
-            data['category'] = Category.objects.get(id=data.get('category'))
-            Product.objects.create(**data)
-            return Response({"create": "успешно создано"})
+            product = Product.objects.get(id=data.get('product'))
+            users = Account.objects.get(id=data.get('users'))
+            carts = Cart.objects.filter(users=users, product=product, is_deleted=False)
+            if carts.exists():
+                cart = carts.first()
+                if cart:
+                    cart.quantity += 1
+                    cart.save()
+                    return Response({"create": "успешно добавлен"})
+            else:
+                Cart.objects.create(users=users, product=product, quantity=1)
+                return Response({"create": "успешно создано"})
+
         except Exception:
             response = Response({'errors': "ошибка"})
             response.status_code = 400
             return response
 
 
-class ProductApiView(GenericAPIView):
-    serializer_class = ProductSerializer
+class CardApiView(GenericAPIView):
+    serializer_class = CardSerializer
 
     def get(self, request, *args, **kwargs):
         try:
-            objects = get_object_or_404(Product, pk=kwargs.get("pk"))
+            objects = get_object_or_404(Account, pk=kwargs.get("pk"))
+            cart = Cart.objects.filter(users=objects, is_deleted=False)
         except ObjectDoesNotExist:
             Response({"error": "введите существующий pk"})
-        serializer = ProductSerializer(objects)
+        serializer = CardSerializer(cart, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, *args, **kwargs):
         data = json.loads(request.body)
-        objects = get_object_or_404(Product, pk=kwargs.get("pk"))
-        serializer = ProductSerializer(objects, data=data)
+        objects = get_object_or_404(Cart, pk=kwargs.get("pk"))
+        serializer = CardSerializer(objects, data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -59,7 +69,7 @@ class ProductApiView(GenericAPIView):
 
     def delete(self, request, *args, **kwargs):
         try:
-            objects = get_object_or_404(Product, pk=kwargs.get("pk"))
+            objects = get_object_or_404(Cart, pk=kwargs.get("pk"))
             objects.delete()
         except ObjectDoesNotExist:
             Response({"error": "введите существующий pk"})

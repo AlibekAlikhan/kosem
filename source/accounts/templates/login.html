@@ -1,15 +1,29 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load django_bootstrap5 %}
 {% block content %}
-    <form method="post">
-       <div class="form">
-            {% csrf_token %}
-        {% bootstrap_form form %}
-       </div>
-        <div class="form_row">
-            {% bootstrap_button button_type="submit" content='Войти' %}
+        <form class="log_form" id="loginForm">
+        <h1 class="login_h">АВТОРИЗАЦИЯ</h1>
+        <div class="email_log">
+            <input class=profile_card_button_login type="email" id="email" required placeholder="Введите почту">
+        </div>
+        <br>
+        <input class=profile_card_button_login type="password" id="password" required placeholder="Введите пароль">
+        <br>
+        <div class="profile_card_button_wrapper log">
+            <span class="profile_card_button">
+             <input class=log_btn type="button" id="create_id" value="Войти">
+            </span>
         </div>
     </form>
+    <div class="new-resident-box">
+        Новый резидент? <br>
+        <a href="{% url 'register' %}">Зарегистрироваться</a>
+    </div>
+    <div id="message" class="message-box"></div>
+{% endblock %}
+{% block script_block %}
+    <script src="{% static 'js/login.js' %}"></script>
 {% endblock %}
 
 

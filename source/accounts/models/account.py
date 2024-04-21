@@ -10,6 +10,11 @@ class Account(AbstractUser):
         unique=True,
         blank=False
     )
+    username = models.CharField(
+        verbose_name="имя пользователя",
+        blank=True,
+        max_length=30
+    )
     phone = models.CharField(
         verbose_name="Номер телефона",
         blank=True,

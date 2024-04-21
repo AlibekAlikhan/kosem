@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load django_bootstrap5 %}
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
-       <div class="form">
-            {% csrf_token %}
-        {% bootstrap_form form %}
-       </div>
-        <div class="form_row">
-            {% bootstrap_button button_type="submit" content='Зарегистрироваться' %}
-        </div>
-    </form>
+<form class="reg_form" id="registrationForm">
+    <h1 class="login_h">РЕГИСТРАЦИЯ</h1>
+    <div class="email_log">
+        <input class=profile_card_button_login type="email" id="email" required placeholder="Введите почту">
+    </div>
+    <br>
+    <input class=profile_card_button_login type="password" id="password" required placeholder="Введите пароль">
+    <br>
+    <div class="profile_card_button_wrapper log">
+            <span class="profile_card_button">
+             <input class=log_btn type="submit" value="Регистрация">
+            </span>
+    </div>
+</form>
+<div id="message" class="message-box"></div>
+{% endblock %}
+{% block script_block %}
+<script src="{% static 'js/register.js' %}"></script>
 {% endblock %}
